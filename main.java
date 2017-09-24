@@ -1,8 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,12 +8,13 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.File;
 import java.awt.image.BufferedImage;
+import java.awt.Toolkit;
+import java.awt.Dimension;
 import javax.imageio.ImageIO;
-
-
 
 public class main extends JComponent
 {
+    final double SCREENPERCENT = .8;
     static main start = new main();    
     static File wayneFolder = new File("waynePictures");
     static File spiderFolder = new File("spiderPictures");
@@ -25,11 +24,15 @@ public class main extends JComponent
     public static void main(String[] theory)
     {
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int gameWidth = (int)(screenSize.getWidth()*SCREENPERCENT);
+        final int gameHeight = (int)(screenSize.getHeight()*SCREENPERCENT);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        start.setBounds(0, 0, 400, 400);
+        start.setBounds(0, 0, gameWidth, gameHeight);
         frame.add(start);
         frame.setVisible(true);
-        frame.setSize(400, 400);
+        frame.setSize(width, height);
 		frame.addKeyListener(new KeyAdapter(){
                 public void keyPressed(KeyEvent e)
                 {
@@ -91,7 +94,6 @@ public class main extends JComponent
     int index = (int)(Math.random()*files.length);
 	BufferedImage photo = null;
     String path = files[index].getPath();
-	//String path = "wayne.jpg";
 	try
         {
             photo = ImageIO.read(main.class.getResourceAsStream(path));
